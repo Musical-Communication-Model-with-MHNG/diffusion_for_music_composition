@@ -17,9 +17,9 @@ $ python train/sampling_inference.py #infer accompainment
 If you convert result of sampling or inference, run ```dataset/npy_to_midi.ipynb```
 
 # How to Train（Multi Agent）
-You can train model by running ```train/train_muhng.py```<br>
+You can train model by running ```train/train_MHNG.py```<br>
 ```
 $ python train/finetuning_CLIP.py #fine-tuning CLIP
-$ python train/train_multi.py #train
+$ python train/train_MHNG.py #train
 ```
 If you change train and fine-tuning setting, change config file in ```train/config```<br>
