@@ -1,0 +1,10 @@
+#------ main ------
+experiment_name: "music_composition_with_diffusion_by_MHNG"
+tags: Diffusion #wandbtag of 
+disable_cuda: False
+device: cuda:2
+seed: 42 
+n_gpus: 1
+
+#------- log ------
+wandb : True #wandbを使うか

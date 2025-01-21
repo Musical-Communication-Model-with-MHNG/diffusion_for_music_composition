@@ -1,0 +1,15 @@
+#------ pretrain(CLIP) setting ------
+#------ image data path ------
+# train_image_data_path:
+# - dataset/data/image/3genre_16note_8bar/train
+# validation_image_data_path:
+# - dataset/data/image/3genre_16note_8bar/valid
+# test_image_data_path:
+# - dataset/data/image/3genre_16note_8bar/test
+
+#------ setting ------
+train_iteration: 3000
+validation_interval: 1 
+checkpoint_interval: 10 
+batch_size: 32
+learning_rate: 1e-5 #default: 1e-5

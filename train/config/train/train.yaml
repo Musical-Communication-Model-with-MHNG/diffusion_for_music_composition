@@ -1,0 +1,73 @@
+#-------- detaset path -------
+train_data_path: 
+- dataset/data/jazz-32/npy/train
+train_image_data_path:
+- dataset/data/jazz-32/image/train
+validation_data_path:
+- dataset/data/jazz-32/npy/val
+validation_image_data_path:
+- dataset/data/jazz-32/image/val
+test_data_path:
+- dataset/data/jazz-32/npy/test
+test_image_data_path:
+- dataset/data/jazz-32/image/test
+
+# #-------- detaset dir （todo: integrate ↑）-------
+# dataset_dir_A: /raid/koki-sakurai/model/dataset/data/npy/classical_1024
+# dataset_dir_B: /raid/koki-sakurai/model/dataset/data/npy/jazz_1024
+
+# #-------- learning mode -------
+mode:  # mode: int #0:No com, 1:all accept
+#A classical, B jazz
+num_agents: 2
+Agent0:
+  diffusion_path: /raid/haruto-uenoyama/diffusion_for_music_composittion/model/classical_32.pt
+  # vae_path: /raid/koki-sakurai/model/train/pretrained/VAE/VAE_classical_1024_25000.pt
+  clip_path:  /raid/haruto-uenoyama/diffusion_for_music_composittion/results/finetuning_CLIP/2025-01-16/run_1/clip/model_1000.pt
+  probvlm_path: 
+Agent1:
+  diffusion_path: /raid/haruto-uenoyama/diffusion_for_music_composittion/model/jazz_32.pt
+  # vae_path: /raid/koki-sakurai/model/train/pretrained/VAE/VAE_jazz_1024_15800.pt
+  clip_path: /raid/haruto-uenoyama/diffusion_for_music_composittion/results/finetuning_CLIP/2025-01-16/run_1/clip/model_1000.pt
+  probvlm_path: 
+
+#------- setting using model -------
+#support Diffusion
+z_model: "Diffusion" #name of using model for obtain z
+#support VAE
+encoder:  #name of using model for encoder
+
+#------ input data setting ------
+data_length: 128
+input_names: ["midi"]
+input_shapes:
+  midi: [2, 256, 128]
+
+ # sociocultural context. e.g. "Classical music in the 18th century"
+contexts: romantic music
+
+# pre-trained model path ※If you generate sampling, you must set this path.
+model_path: /raid/haruto-uenoyama/diffusion_for_music_composittion/results/music_composition_with_diffusion_by_MHNG/2025-01-17/run_28/model/model_100.pt
+
+#------ train params （Single Agent） ------
+train_iteration: 5000
+validation_interval: 1
+checkpoint_interval: 100
+batch_size: 32
+sampling_size: 32 # ここを32から40に変更するとエラーが出る
+num_steps: 1000 # default: 1000
+learning_rate: 1e-5 # default: 2e-5
+text_condition: True # default: True
+
+#------ train params （Multi Agent）------
+train_iteration_MH: 100
+finetuning_diffusion_itr: 100
+finetuning_probvlm_itr: 100
+checkpoint_interval_MH: 10
+batch_size_MH: 64 #for getting text data
+batch_size_diffusion: 32 #finetuning batch size of diffusion
+batch_size_clip_probvlm: 256
+learning_rate_MH: 2e-5 #default: 2e-5
+seed: 42
+condition_type: text #condition type #text or class
+use_clip_probvlm: True #flag of using text encoder
